@@ -1,4 +1,3 @@
----
 - name: Configurar o nodeJS nos servers
   hosts: servers
   become: yes
@@ -18,3 +17,12 @@
         name: nodejs
         state: present
 
+    - name: Clonar repositório
+      ansible.builtin.git:
+        repo: https://gitlab.com/lets00/node-typescript-api-project.git
+        dest: /home/vagrant/repositorio
+        separate_git_dir: /home/vagrant/repositorio/node-typescript-api-project.git
+
+    - name: Instalar dependências do projeto
+        npm:
+        path: /home/vagrant/repositorio/node-typescript-api-project
